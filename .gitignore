@@ -1,0 +1,11 @@
+/target
+/project/.bloop
+/project/target
+/project/project
+/event-store/target
+
+.vscode
+.bsp
+.metals
+.idea
+.bloop
