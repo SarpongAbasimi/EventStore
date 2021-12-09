@@ -9,7 +9,8 @@ val eventStore = (project in file("./event-store"))
   Dependencies.catsEffets,
   Dependencies.http4sDsl,
   Dependencies.http4Server,
-  Dependencies.http4sClient
+  Dependencies.http4sClient,
+  Dependencies.ciris
 ))
 
 
