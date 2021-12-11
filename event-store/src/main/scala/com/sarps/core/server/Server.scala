@@ -10,7 +10,7 @@ object Server {
   def stream[F[_]: Async](config: Config): fs2.Stream[F, ExitCode] = for {
     server <- BlazeServerBuilder[F]
       .bindHttp(config.serverConfig.port.port, config.serverConfig.host.host)
-      .withHttpApp(ThoughtsRoute.route[F].orNotFound)
+      .withHttpApp(ThoughtsRoute.appRoute[F].orNotFound)
       .serve
   } yield server
 }
