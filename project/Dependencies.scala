@@ -6,6 +6,7 @@ object Dependencies {
   private val cirisVersion             = "2.3.1"
   private val circeVersion             = "0.14.1"
   private val circeGenericExtraVersion = "0.14.1"
+  private val fs2KafkaVersion          = "2.2.0"
 
   def http4s(branch: String) =
     "org.http4s" %% s"http4s-$branch" % http4sVersion
@@ -16,9 +17,10 @@ object Dependencies {
     "io.circe" %% "circe-parser"
   ).map(_ % circeVersion)
 
-  val ciris             = "is.cir"        %% "ciris"                % cirisVersion
-  val catsEffects       = "org.typelevel" %% "cats-effect"          % catsEffectVersion
-  val circeGenericExtra = "io.circe"      %% "circe-generic-extras" % circeGenericExtraVersion
+  val ciris             = "is.cir"          %% "ciris"                % cirisVersion
+  val catsEffects       = "org.typelevel"   %% "cats-effect"          % catsEffectVersion
+  val circeGenericExtra = "io.circe"        %% "circe-generic-extras" % circeGenericExtraVersion
+  val fs2Kafka          = "com.github.fd4s" %% "fs2-kafka"            % fs2KafkaVersion
   val http4sDsl         = http4s("dsl")
   val http4Server       = http4s("blaze-server")
   val http4sClient      = http4s("blaze-client")

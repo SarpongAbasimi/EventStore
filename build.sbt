@@ -12,6 +12,7 @@ val eventStore = (project in file("./event-store"))
       Dependencies.catsEffects,
       Dependencies.http4sClient,
       Dependencies.circeGenericExtra,
-      Dependencies.http4sCirce
+      Dependencies.http4sCirce,
+      Dependencies.fs2Kafka
     ) ++ Dependencies.circe
   )
