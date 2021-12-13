@@ -8,7 +8,7 @@ object Dependencies {
   private val circeGenericExtraVersion = "0.14.1"
   private val fs2KafkaVersion          = "2.2.0"
 
-  def http4s(branch: String) =
+  def http4s(branch: String): ModuleID =
     "org.http4s" %% s"http4s-$branch" % http4sVersion
 
   val circe = Seq(
