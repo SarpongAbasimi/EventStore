@@ -19,6 +19,7 @@ object Dependencies {
 
   val ciris             = "is.cir"          %% "ciris"                % cirisVersion
   val catsEffects       = "org.typelevel"   %% "cats-effect"          % catsEffectVersion
+  val catsEffectsStd    = "org.typelevel"   %% "cats-effect-std"      % catsEffectVersion
   val circeGenericExtra = "io.circe"        %% "circe-generic-extras" % circeGenericExtraVersion
   val fs2Kafka          = "com.github.fd4s" %% "fs2-kafka"            % fs2KafkaVersion
   val http4sDsl         = http4s("dsl")
