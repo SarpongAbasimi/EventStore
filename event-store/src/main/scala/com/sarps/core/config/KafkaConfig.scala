@@ -8,7 +8,7 @@ case class KafkaConfig(bootstrapServer: BootStrapServer, groupId: GroupId, topic
 
 object KafkaConfig {
   val kafkaConfig: ConfigValue[Effect, KafkaConfig] = (
-    env("BOOTSTRAP_SERVER").as[String].default(""),
+    env("BOOTSTRAP_SERVER").as[String].default("localhost:9092"),
     env("GROUP_ID").as[String].default("consumerGroup"),
     env("KAFKA_TOPIC").as[String].default("thoughtsTopic")
   ).parMapN((port, groupId, topic) =>
