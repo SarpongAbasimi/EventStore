@@ -4,12 +4,12 @@ import cats.effect.kernel.{Async, Resource}
 import com.sarps.core.config.ElasticSearchConfig
 import org.apache.http.HttpHost
 import org.elasticsearch.client.indices.CreateIndexRequest
-import org.elasticsearch.client.{RestClientBuilder, RestHighLevelClient}
+import org.elasticsearch.client.{RestClient, RestHighLevelClient}
 import org.elasticsearch.common.settings.Settings
 
 trait EsClientAlgebra[F[_]] {
   def client: Resource[F, RestHighLevelClient]
-  def createIndex: F[CreateIndexRequest]
+  def createIndexRequest: F[CreateIndexRequest]
 }
 
 object EsClientAlgebra {
@@ -18,14 +18,14 @@ object EsClientAlgebra {
       def client: Resource[F, RestHighLevelClient] = Resource.make(
         Async[F].delay(
           new RestHighLevelClient(
-            new RestClientBuilder(
+            RestClient.builder(
               new HttpHost(esConfig.host.host, esConfig.port.port, esConfig.scheme.scheme)
             )
           )
         )
       )(client => Async[F].delay(client.close()))
 
-      def createIndex: F[CreateIndexRequest] = Async[F].delay {
+      def createIndexRequest: F[CreateIndexRequest] = Async[F].delay {
         new CreateIndexRequest(esConfig.index.name)
           .settings(
             Settings
