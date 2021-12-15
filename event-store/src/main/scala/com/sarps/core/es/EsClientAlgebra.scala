@@ -30,7 +30,6 @@ object EsClientAlgebra {
           .settings(
             Settings
               .builder()
-              .put("cluster.name", esConfig.cluster.name)
               .put("index.number_of_shards", esConfig.shards.value)
               .put("index.number_of_replicas", esConfig.replicas.value)
           )
