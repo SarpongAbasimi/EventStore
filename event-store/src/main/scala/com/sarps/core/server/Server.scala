@@ -22,7 +22,7 @@ object Server {
 
     producer: ThoughtsProducer[F]    = ThoughtsProducer.impl[F](config.kafkaConfig)
     consumer: ThoughtsConsumer[F]    = ThoughtsConsumer.impl[F](config.kafkaConfig)
-    indexService: IndexingService[F] = IndexingService.impl[F](esClient, consumer)
+    indexService: IndexingService[F] = IndexingService.impl[F](esClient, consumer, restHighClient)
 
     server <- BlazeServerBuilder[F]
       .bindHttp(config.serverConfig.port.port, config.serverConfig.host.host)
