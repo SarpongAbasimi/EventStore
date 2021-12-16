@@ -38,10 +38,7 @@ object ThoughtsConsumer {
           .subscribeTo(kafkaConfig.topic.topic)
           .records
           .evalTapChunk { consumerRecord =>
-            Console[F].println(
-              s"Record -> ${consumerRecord.record.value}, offset ${consumerRecord.offset.show} " +
-                s"and from partition ${consumerRecord.offset.topicPartition}"
-            ) *> consumerRecord.offset.commit
+            Console[F].println(s"Record has been processed!") *> consumerRecord.offset.commit
           }
 
       }
