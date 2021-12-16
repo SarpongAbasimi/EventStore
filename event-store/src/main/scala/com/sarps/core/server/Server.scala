@@ -10,12 +10,16 @@ import com.sarps.core.kafka.{ThoughtsConsumer, ThoughtsProducer}
 import com.sarps.core.service.IndexingService
 import org.http4s.blaze.server.BlazeServerBuilder
 import fs2.Stream
+import org.elasticsearch.client.RestHighLevelClient
 
 object Server {
-  def stream[F[_]: Async: Console](config: Config): fs2.Stream[F, ExitCode] = for {
+  def stream[F[_]: Async: Console](
+      config: Config,
+      restHighClient: RestHighLevelClient,
+      esClient: EsClientAlgebra[F]
+  ): fs2.Stream[F, ExitCode] = for {
     _ <- Stream.eval(Console[F].println("Starting Server 🚀"))
 
-    esClient: EsClientAlgebra[F]     = EsClientAlgebra.impl[F](config.elasticSearchConfig)
     producer: ThoughtsProducer[F]    = ThoughtsProducer.impl[F](config.kafkaConfig)
     consumer: ThoughtsConsumer[F]    = ThoughtsConsumer.impl[F](config.kafkaConfig)
     indexService: IndexingService[F] = IndexingService.impl[F](esClient, consumer)
