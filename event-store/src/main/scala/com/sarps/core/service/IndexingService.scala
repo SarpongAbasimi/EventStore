@@ -2,11 +2,10 @@ package com.sarps.core.service
 
 import cats.effect.kernel.Async
 import cats.effect.std.Console
-import com.sarps.core.es.EsClientAlgebra
+import com.sarps.core.es.{EsAlgebra}
 import com.sarps.core.kafka.ThoughtsConsumer
-import org.elasticsearch.client.{RequestOptions, RestHighLevelClient}
+import org.elasticsearch.client.{RestHighLevelClient}
 import fs2.Stream
-import cats.syntax.functor._
 import org.elasticsearch.action.index.IndexResponse
 
 trait IndexingService[F[_]] {
@@ -15,17 +14,16 @@ trait IndexingService[F[_]] {
 
 object IndexingService {
   def impl[F[_]: Async: Console](
-      esClient: EsClientAlgebra[F],
       consumer: ThoughtsConsumer[F],
-      restClient: RestHighLevelClient
+      restClient: RestHighLevelClient,
+      esAlgebra: EsAlgebra[F]
   ): IndexingService[F] =
     new IndexingService[F] {
 
       def persist: Stream[F, IndexResponse] = {
         consumer.consume
           .evalMapChunk { consumedEvents =>
-            val indexRequest = esClient.index(consumedEvents.record.value)
-            indexRequest.map(request => restClient.index(request, RequestOptions.DEFAULT))
+            esAlgebra.indexRecord(consumedEvents.record.value)
           }
           .evalTapChunk(indexResponse =>
             Console[F].println(s"The index status is ->  ${indexResponse.status()}")
