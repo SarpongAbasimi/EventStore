@@ -28,6 +28,16 @@ final case class Thoughts(
 The event is then published to a `kafka-topic` which is then consumed by a
 Kafka consumer and indexed into an elasticSearch index.
 
+# How to start the application 
+- `Option One ->` Open app in IntelliJ and click on the play button
+- From the root of the application `run` the `./testServer.sh` script
+- `Option two ->` Type in `sbt project eventStore`
+- Then type in `run` to start the server
+
+# To do
+- Configure app so that it can be run using sbt without specifying the project
+- When the app is run, docker compose is started automatically
+
 # TechStack
 
 - `cats-Effects`
