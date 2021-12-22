@@ -35,7 +35,7 @@ final case class Thoughts(
     name: Name,
     message: Message,
     regrets: Option[Regrets],
-    date: Option[Date] = Some(Date(Instant.now()))
+    date: Option[Date]
 )
 
 object Thoughts {
